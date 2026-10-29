@@ -1,0 +1,14 @@
+name: Check project
+on: [push, pull_request]
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: ZAPAS_MASTER_KEY="$(python scripts/generate_key.py)" python -m unittest discover -s tests
+      - run: docker compose --env-file .env.example config --quiet
+      - run: docker build -t zapas-check .

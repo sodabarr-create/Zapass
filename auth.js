@@ -1,0 +1,5 @@
+let registerMode=false;
+const form=document.getElementById('auth-form'),result=document.getElementById('auth-result'),button=document.getElementById('auth-submit');
+function mode(value){registerMode=value;button.textContent=value?'Создать кабинет':'Войти';form.elements.password.autocomplete=value?'new-password':'current-password';result.textContent=''}
+document.getElementById('auth-register').onclick=()=>mode(true);document.getElementById('auth-login').onclick=()=>mode(false);
+form.onsubmit=async event=>{event.preventDefault();button.disabled=true;result.textContent='Проверяем данные…';try{const response=await fetch(registerMode?'/api/auth/register':'/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({login:form.elements.login.value,password:form.elements.password.value})});const data=await response.json();if(!response.ok)throw Error(data.error||'Не удалось войти.');form.elements.password.value='';location.href='/web-app'}catch(error){result.textContent=error.message}finally{button.disabled=false}};

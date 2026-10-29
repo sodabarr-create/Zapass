@@ -1,0 +1,5 @@
+Official Telegram Mini App SDK
+Source: https://telegram.org/js/telegram-web-app.js
+Retrieved: 2026-10-29
+SHA256: 124bdff7ba3fe86c8ba5143467afec21e020405e74abdb92cfdda6c0ee3b5908
+Served unchanged from this origin to avoid a separate blocking request during launch.
